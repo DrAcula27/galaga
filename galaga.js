@@ -100,7 +100,11 @@ function isGameOver() {
 
 function displayEnd() {
 	SOUNDS["start"].currentTime=0;
-	SOUNDS["start"].play();
+	try {
+		SOUNDS["start"].play();
+	} catch(e) {
+		
+	}
 	gamePhase = 2;
 	$('message').text('Level Complete');
 	$('message').show();
@@ -115,9 +119,13 @@ function fireMissle() {
 		playArea.append(missle);
 		missle.css({'position':'absolute', 'top':(fighter.position().top / SCALE) - 1, 'left':(fighter.position().left / SCALE) + 2, '-webkit-animation':'missles 1s linear infinite'});
 		if(SOUNDS_ON) {
+			try {
 			SOUNDS["firing"].pause();
 			SOUNDS["firing"].currentTime=0;
 			SOUNDS["firing"].play();
+			} catch(e) {
+		
+			}
 		}
 		GAME_OBJECTS["missles"][GAME_OBJECTS["missles"].length] = missle;
 	}
@@ -139,9 +147,13 @@ function stepMissle() {
 				missle.remove(); // take it off the screen
 				GAME_OBJECTS["missles"].splice(i, 1);
 				if(SOUNDS_ON) {
+					try {
 					SOUNDS["kill"].pause();
 					SOUNDS["kill"].currentTime=0;
 					SOUNDS["kill"].play();
+					} catch(e) {
+		
+					}
 				}
 			}
 		}
@@ -287,8 +299,12 @@ function buildLevel() {
 	$('.footer').append(reserve.clone()).append(reserve);
 	// start the ready
 	if(SOUNDS_ON) {
+		try {
 		$(SOUNDS["theme"]).bind('ended', readyPause);
 		SOUNDS["theme"].play();
+		} catch(e) {
+		
+		}
 	} else {
 		setTimeout(readyPause, 500);
 	}
@@ -303,7 +319,11 @@ function readyPause() {
 	$('message').text('Level 1');
 	if(SOUNDS_ON) {
 		$(SOUNDS["start"]).bind('ended', hideMessage);
+		try {
 		SOUNDS["start"].play();
+		} catch(e) {
+		
+		}
 	} else {
 		$('message').hide();
 	}
@@ -328,7 +348,11 @@ function animateEnemies() {
 function pageReady() {
 	$('message').text('Press Enter to Start');
 	if(SOUNDS_ON) {
+		try {
 		SOUNDS["coin"].play();
+		} catch(e) {
+		
+		}
 	}
 }
 
